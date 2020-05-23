@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { signout, isAutheticated } from "../auth/helper";
 
 const currentTab = (history, path) => {
   if (history.location.pathname === path) {
@@ -17,7 +18,6 @@ const Menu = ({ history }) => (
           Home
         </Link>
       </li>
-
       <li className="nav-item">
         <Link
           className="nav-link"
@@ -27,7 +27,6 @@ const Menu = ({ history }) => (
           Cart
         </Link>
       </li>
-
       <li className="nav-item">
         <Link
           className="nav-link"
@@ -37,7 +36,6 @@ const Menu = ({ history }) => (
           Dashboard
         </Link>
       </li>
-
       <li className="nav-item">
         <Link
           className="nav-link"
@@ -48,35 +46,44 @@ const Menu = ({ history }) => (
         </Link>
       </li>
 
-      <li className="nav-item">
-        <Link
-          className="nav-link"
-          style={currentTab(history, "/signup")}
-          to="/signup"
-        >
-          Signup
-        </Link>
-      </li>
+      {!isAutheticated() && (
+        <Fragment>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={currentTab(history, "/signup")}
+              to="/signup"
+            >
+              Signup
+            </Link>
+          </li>
 
-      <li className="nav-item">
-        <Link
-          className="nav-link"
-          style={currentTab(history, "/signin")}
-          to="/signin"
-        >
-          Sigin
-        </Link>
-      </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              style={currentTab(history, "/signin")}
+              to="/signin"
+            >
+              Sigin
+            </Link>
+          </li>
+        </Fragment>
+      )}
 
-      <li className="nav-item">
-        <Link
-          className="nav-link"
-          style={currentTab(history, "/signout")}
-          to="/signout"
-        >
-          Signout
-        </Link>
-      </li>
+      {isAutheticated() && (
+        <li className="nav-item">
+          <span
+            className="nav-link text-warning"
+            onClick={() => {
+              signout(() => {
+                history.push("/");
+              });
+            }}
+          >
+            SignOut
+          </span>
+        </li>
+      )}
     </ul>
   </div>
 );

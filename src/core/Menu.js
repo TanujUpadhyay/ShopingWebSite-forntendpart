@@ -32,7 +32,7 @@ const Menu = ({ history }) => (
         <li className="nav-item">
           <Link
             className="nav-link"
-            style={currentTab(history, "/user/dashboardd")}
+            style={currentTab(history, "/user/dashboard")}
             to="/user/dashboard"
           >
             U.Dashboard

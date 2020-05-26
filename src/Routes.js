@@ -8,10 +8,11 @@ import PrivateRoutes from "./auth/helper/PrivateRoutes";
 import UserDashBoard from "./user/UserDashBoard";
 import AdminDashBoard from "./user/AdminDashBoard";
 import AddCategory from "./admin/AddCategory";
-import MAnageCategory from "./admin/ManageCategory";
+import ManageCategories from "./admin/ManageCategory";
 import AddProduct from "./admin/AddProduct";
 import ManageProduct from "./admin/ManageProducts";
 import UpdateProduct from "./admin/UpdateProduct";
+import UpdateCategory from "./admin/UpdateCategory";
 
 const Routes = () => {
   return (
@@ -27,7 +28,17 @@ const Routes = () => {
           exact
           component={AddCategory}
         />
-        <AdminRoutes path="admin/categories" exact component={MAnageCategory} />
+        <AdminRoutes
+          path="/admin/categories"
+          exact
+          component={ManageCategories}
+        />
+        <AdminRoutes
+          path="/admin/category/update/:categoryId"
+          exact
+          component={UpdateCategory}
+        />
+
         <AdminRoutes
           path="/admin/create/product"
           exact

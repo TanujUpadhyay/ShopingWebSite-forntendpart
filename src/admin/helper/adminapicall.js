@@ -18,10 +18,62 @@ export const createCategory = (userId, token, category) => {
 };
 
 //get all category
-
 export const getCategorys = () => {
   return fetch(`${API}/categories`, {
     method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//delete a caegory
+export const deleteCategory = (categoryId, userId, token) => {
+  return fetch(`${API}/category/${categoryId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// get a category
+export const getCategory = (categoryId, userId, token) => {
+  return fetch(`${API}/category/${categoryId}/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// update a category
+export const updateCategory = (categoryId, userId, token, category) => {
+  console.log("inside api call upc :-" + category);
+  return fetch(`${API}/category/${categoryId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: category,
   })
     .then((response) => {
       return response.json();
@@ -51,7 +103,6 @@ export const createProduct = (userId, token, product) => {
 };
 
 //get all the product
-
 export const getProducts = () => {
   return fetch(`${API}/products`, {
     method: "GET",
@@ -95,7 +146,6 @@ export const getProduct = (productId) => {
 };
 
 //update a product
-
 export const updateProduct = (productId, userId, token, product) => {
   return fetch(`${API}/product/${productId}/${userId}`, {
     method: "PUT",

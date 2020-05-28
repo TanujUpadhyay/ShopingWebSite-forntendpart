@@ -5,6 +5,7 @@ import Base from "./Base";
 import Card from "./Card";
 import { getProducts } from "./helper/coreapicalls";
 import { loadCart } from "./helper/CartHelper";
+import StripCheckOut from "./StripeCheckOut";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -34,11 +35,7 @@ const Cart = () => {
   };
 
   const loadCheackout = () => {
-    return (
-      <div>
-        <h2>This section is to load products</h2>
-      </div>
-    );
+    return <StripCheckOut products={products} setReload={setReload} />;
   };
 
   return (

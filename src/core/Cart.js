@@ -6,6 +6,7 @@ import Card from "./Card";
 import { getProducts } from "./helper/coreapicalls";
 import { loadCart } from "./helper/CartHelper";
 import StripCheckOut from "./StripeCheckOut";
+import Braintreepayment from "./Braintreepayment";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const Cart = () => {
     setProducts(loadCart());
   }, [reload]);
 
-  const loadAllProduct = () => {
+  const loadAllProduct = (products) => {
     return (
       <div>
         <h2>This section is for check out</h2>
@@ -41,8 +42,18 @@ const Cart = () => {
   return (
     <Base title="Cart page" description="Ready to check out">
       <div className="row text-center">
-        <div className="col-6">{loadAllProduct()}</div>
-        <div className="col-6">{loadCheackout()}</div>
+        <div className="col-6">
+          {products.length > 0 ? (
+            loadAllProduct(products)
+          ) : (
+            <h3>NO Products in cards</h3>
+          )}
+        </div>
+        <div className="col-6">
+          {loadCheackout()}
+          <hr />
+          <Braintreepayment products={products} setReload={setReload} />
+        </div>
       </div>
     </Base>
   );

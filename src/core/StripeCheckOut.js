@@ -46,6 +46,9 @@ const StripCheckOut = ({
         console.log(response);
         //call further methods
         const { status } = response;
+        cartEmpty(() => {
+          setReload(!reload);
+        });
         console.log("Status : ", status);
       })
       .catch((error) => console.log(error));
@@ -54,7 +57,7 @@ const StripCheckOut = ({
   const showStripButton = () => {
     return isAutheticated() ? (
       <StripeCheckoutButton
-        stripeKey="pk_test_1pTCYviqQnW5vCsCTDIu4jS000bbNEKDpL"
+        stripeKey={process.env.REACT_APP_PK}
         token={makePayment}
         amount={getFinalAmount() * 100}
         name="ShopingWeb"
@@ -74,7 +77,11 @@ const StripCheckOut = ({
 
   return (
     <div>
-      <h3 className="text-white">Stripe checkout loaded {getFinalAmount()}</h3>
+      <h4>Your total amount :- {getFinalAmount()}</h4>
+
+      <hr className="bg-success" />
+      <br />
+      <h3 className="text-white mt-3">Stripe Gateway</h3>
       {showStripButton()}
     </div>
   );

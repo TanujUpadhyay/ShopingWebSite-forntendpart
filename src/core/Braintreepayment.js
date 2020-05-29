@@ -75,8 +75,14 @@ const Braintreepayment = ({
           setInfo({ ...info, success: response.success, loading: false });
           console.log("Payment success ");
 
+          const orderdata = {
+            products: products,
+            transaction_id: response.transaction_id,
+            amount: response.transaction.amount,
+          };
+          createOder(userId, token, orderdata);
+
           cartEmpty(() => {
-            console.log("Did we got a create");
             setReload(!reload);
           });
         })
@@ -97,7 +103,7 @@ const Braintreepayment = ({
 
   return (
     <div>
-      <h3>Pay whith paypal {getAmount()}</h3>
+      <h3>Pay Pal Gateway</h3>
       {showbtdropIn()}
     </div>
   );
